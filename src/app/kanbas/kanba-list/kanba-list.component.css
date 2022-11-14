@@ -1,0 +1,11 @@
+.flex{
+    display:flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    flex-direction: row;
+    
+}
+.mt{
+ margin-top:1rem;
+}
+

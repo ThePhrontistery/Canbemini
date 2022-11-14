@@ -1,0 +1,26 @@
+<mat-card class="mt-1" cdkDrag>     
+    {{item.LaneId}}
+    <mat-card-header style="display: block;" > 
+
+        <div class="space-between" >
+            <div class="flet-start">
+                <button mat-icon-button (click)="edit()">
+                    <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="edit"></mat-icon>
+                </button>   
+                <div class="title">{{item.title}}</div> 
+            </div>
+    
+            <button mat-icon-button (click)="remove()">
+                <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="close"></mat-icon>
+            </button>
+        </div>
+        
+    </mat-card-header>
+    
+    <mat-divider></mat-divider>
+    
+    <mat-card-content class="pad">
+        <p>{{item.description}}</p>
+    </mat-card-content>    
+
+</mat-card>

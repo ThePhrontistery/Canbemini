@@ -1,0 +1,25 @@
+<!--  [ngStyle]="{background: kanba.color}" -->
+
+<div
+cdkDropList
+            id="list{{index}}" [cdkDropListConnectedTo]="listId"     
+            [cdkDropListData]="kanba.items"
+            (cdkDropListDropped)="drop($event,kanba.id)">
+<mat-card class="kanbas">
+    <mat-card-header>
+        <div class="space-between w-100">
+            <mat-card-title>{{kanba.title}}</mat-card-title>
+            <button mat-icon-button (click)="edit()"> <mat-icon>edit</mat-icon></button>
+        </div>
+    </mat-card-header>
+    <!-- <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu"> -->
+    <mat-card-content>
+        <button (click)="add()" mat-stroked-button   color="secondary"style="width: 100%;"><mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="add"></mat-icon>
+        </button>
+       
+    </mat-card-content>
+
+    <app-task  [Kanba]="kanba"  [index]="i" [indexY]="index" *ngFor="let itemKanba of kanba.items;let i=index;" [item]="itemKanba"></app-task>
+    
+  </mat-card>
+</div>
