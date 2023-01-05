@@ -18,6 +18,7 @@ import es.capgemini.cca.canbemini.users.Users;
 import es.capgemini.cca.canbemini.users.UsersDto;
 import es.capgemini.cca.canbemini.users.UsersService;
 
+//clase de servicio para la entidad Kanban. Implementa a la interfaz KanbanService
 @Service
 @Transactional
 public class KanbanServiceImpl implements KanbanService {
@@ -34,6 +35,7 @@ public class KanbanServiceImpl implements KanbanService {
     @Autowired
     PermissionService permissionService;
 
+    // Recuperar una lista de Kanbans asociados a un usuario determinado.
     @Override
     public List<Kanban> findUserKanbans() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -42,20 +44,25 @@ public class KanbanServiceImpl implements KanbanService {
         return (List<Kanban>) this.kanbanRepository.findUserKanbans(userId);
     }
 
+    // Recuperar una lista de Kanbans asociados a un usuario y a un Kanban concreto.
     @Override
     public List<Kanban> findUserKanbanId(Long userId, Long kanbanId) {
         return this.kanbanRepository.findUserKanbanId(userId, kanbanId);
     }
 
+    // Recuperar un Kanban dado su identificador.
     @Override
     public Kanban getKanban(Long id) {
         return this.kanbanRepository.findById(id).orElse(null);
     }
 
+    // Eliminar un Kanban dado su identificador.
     @Override
     public void deleteKanban(Long id) {
         this.kanbanRepository.deleteById(id);
     }
+
+    // Guardar un Kanban nuevo o actualizar uno existente.
 
     @Override
     public void saveKanban(Long id, KanbanDto kanbanDto, Long userId) {
@@ -91,16 +98,19 @@ public class KanbanServiceImpl implements KanbanService {
 
     }
 
+    // Recuperar un Kanban dado su código.
     @Override
     public Kanban getByCode(String code) {
         return this.kanbanRepository.findByCode(code);
     }
 
+    // Verificar si un usuario tiene permisos de acceso a un Kanban determinado.
     @Override
     public Boolean isAuthorized(String permission, Long kanbanId) throws NotAuthorizedException {
         return this.ukpService.isAuthorized(permission, kanbanId);
     }
 
+    // Verificar si un usuario es el dueño de un Kanban determinado.
     @Override
     public Boolean verifyUser(Long userId, UserDetailsImpl userDetailsImpl) {
         return this.userService.verifyUser(userId, userDetailsImpl);

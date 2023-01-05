@@ -2,16 +2,19 @@ package es.capgemini.cca.canbemini.kanban.swimlane.note.attachment;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+//Representa a un objeto de transferencia de datos (DTO) para la entidad Attatchment
 public class AttachmentDto {
 
-    private Long id;
-    private String document_path;
+    private Long id; // identificador único
 
-    private String name;
+    private String document_path; // ruta donde se encuentra el archivo adjunto
 
-    private String type;
-    @JsonIgnore
-    private byte[] file;
+    private String name; // nombre del archivo
+
+    private String type; // tipo de archivo: .pdf, .txt, .jpeg
+
+    @JsonIgnore // este atributo no debe incluirse en la serialización a formato JSON.
+    private byte[] file; // contiene el contenido del archivo adjunto.
 
     public AttachmentDto(String document_path) {
 

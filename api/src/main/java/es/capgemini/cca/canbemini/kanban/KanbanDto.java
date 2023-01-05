@@ -5,6 +5,10 @@ import java.util.List;
 import es.capgemini.cca.canbemini.kanban.swimlane.SwimlaneDto;
 import es.capgemini.cca.canbemini.userKanbanPermission.UserKanbanPermissionDto;
 
+/*representa un objeto Kanban en formato de transferencia de datos (Data Transfer Object, DTO).
+ *  Es utilizada para enviar y recibir información de una aplicación de Kanban a través de una 
+ *  interfaz de programación de aplicaciones (API).
+ */
 public class KanbanDto {
 
     private Long id;

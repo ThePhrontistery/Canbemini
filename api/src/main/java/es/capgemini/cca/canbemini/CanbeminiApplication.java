@@ -24,6 +24,7 @@ import es.capgemini.cca.canbemini.userKanbanPermission.UserKanbanPermissionRepos
 import es.capgemini.cca.canbemini.users.Users;
 import es.capgemini.cca.canbemini.users.UsersRepository;
 
+// esta anotación indica que es el punto de entrada
 @SpringBootApplication
 public class CanbeminiApplication {
 
@@ -32,10 +33,19 @@ public class CanbeminiApplication {
 
     private static final Logger log = LoggerFactory.getLogger(CanbeminiApplication.class);
 
+    // s el punto de entrada del programa. Este método invoca a
+    // SpringApplication.run, lo que inicia la aplicación.
     public static void main(String[] args) {
         SpringApplication.run(CanbeminiApplication.class, args);
     }
 
+    /*
+     * método demo annotado con @Bean, que se utiliza para configurar un
+     * CommandLineRunner. Un CommandLineRunner es un componente de Spring que se
+     * ejecuta justo después de que la aplicación se inicia y antes de que el
+     * contenedor se cierre. En este caso, el método demo se utiliza para insertar
+     * algunos datos de prueba en las diferentes tablas de la base de datos.
+     */
     @Bean
     public CommandLineRunner demo(KanbanRepository kanbanRepository, SwimlaneRepository swimlaneRepository,
             NoteRepository noteRepository, UsersRepository usersRepository, PermissionRepository permissionRepository,
@@ -128,7 +138,8 @@ public class CanbeminiApplication {
             ukpRepository.save(ukp5);
             ukpRepository.save(ukp6);
 
-            // fetch all Kanbans
+            // bbuscar todos los Kanbans, se usa un repositorio que se utiliza para acceder
+            // a la tabla de kanbans en la base de datos.
             log.info("Kanbans found with findAll():");
             log.info("-------------------------------");
             for (Kanban kanban : kanbanRepository.findAll()) {

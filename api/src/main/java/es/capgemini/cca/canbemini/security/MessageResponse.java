@@ -1,5 +1,6 @@
 package es.capgemini.cca.canbemini.security;
 
+//clase de respuesta utilizada para enviar un mensaje de respuesta a una solicitud
 public class MessageResponse {
     private String message;
 

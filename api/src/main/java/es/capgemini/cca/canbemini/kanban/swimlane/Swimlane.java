@@ -18,12 +18,14 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import es.capgemini.cca.canbemini.kanban.Kanban;
 import es.capgemini.cca.canbemini.kanban.swimlane.note.Note;
 
-@Entity
+@Entity // indica que puede estar mapeada a una tabla de la base de datos
 @Table(name = "Swimlane")
 public class Swimlane {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id // clave primaria de la tabla
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // el valor del id se generará automáticamente
+    // @Column significa que cada uno será mapeado a una columna en la tabla
+    // Swimlane
     @Column(name = "id", nullable = false)
     private Long id;
 
@@ -33,12 +35,15 @@ public class Swimlane {
     @Column(name = "ord", nullable = false)
     private Long order;
 
-    @JsonIgnore
-    @ManyToOne
+    @JsonIgnore // se utiliza para evitar que el atributo kanban sea serializado al convertir un
+                // objeto Swimlane a una representación JSON.
+    @ManyToOne // tiene una relación de muchos a uno con la clase Kanban, lo que significa que
+               // cada simlane pertenece a un tablero específico.
     @JoinColumn(name = "kanban_id")
     private Kanban kanban;
 
-    @OneToMany(mappedBy = "swimlane", orphanRemoval = true, cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "swimlane", orphanRemoval = true, cascade = CascadeType.PERSIST) // cada swimlane puede tener
+                                                                                           // varias notas.
     private List<Note> notes;
 
     public Swimlane(String title, Kanban kanban, Long order) {
@@ -47,6 +52,8 @@ public class Swimlane {
         this.order = order;
     }
 
+    // contructor protegido, cuando se crea una nueva instancia de Swimlane, el
+    // valor de order será 1 de manera predeterminada.
     protected Swimlane() {
         this.order = 1L;
     }

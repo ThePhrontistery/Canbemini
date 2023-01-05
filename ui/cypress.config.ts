@@ -18,18 +18,26 @@ export default defineConfig({
   //tiempo máximo que debe esperar a que se cargue la página antes de que expire
   pageLoadTimeout: 100000,
   e2e: {
-    //configuración de la URL para que apunte al puerto 4200
-    baseUrl:"http://localhost:4200/",
-    //esta función permite especificar listeners de eventos
     setupNodeEvents(on, config) {
-      // implement node event listeners here
-    },
+      console.log(config) // see everything in here!
+      
+      // modify config values
+      config.defaultCommandTimeout = 10000
+      config.baseUrl = 'http://localhost:4200/'
+      
+      // modify env var value
+      config.env.ENVIRONMENT = 'staging'
+      
+      // IMPORTANT return the updated config object
+      return config
+    }
+
   },
 });
-// enviar el token de autenticación
+/* // enviar el token de autenticación
 module.exports = {
   requestTimeout: 60000,
   headers: {
     Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjZXNhckBlbWFpbC5jb20iLCJlbWFpbCI6ImNlc2FyQGVtYWlsLmNvbSJ9.wH0jIVJJqesxCAgzg35KD7Ez5x3U0UTfeh6z6TgNJfI',
   },
-};
+}; */

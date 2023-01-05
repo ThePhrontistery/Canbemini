@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import es.capgemini.cca.canbemini.users.Users;
 import es.capgemini.cca.canbemini.users.UsersRepository;
 
+//implementación de la interfaz UserDetailsService
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
@@ -17,7 +18,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     UsersRepository usersRepository;
 
     @Override
-    @Transactional
+    @Transactional //significa que cualquier operación realizada se realizará en una transacción.
+    /*consulta a la base de datos para recuperar un usuario con un email determinado. Si esta consulta
+    tiene éxito, se completa la transacción y se devuelve el usuario. Si la consulta falla,
+    se deshacen todas las operaciones realizadas y se lanza una excepción.
+     */
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Users user = usersRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("User Not Found with email: " + email));

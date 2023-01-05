@@ -14,26 +14,28 @@ import es.capgemini.cca.canbemini.kanban.Kanban;
 import es.capgemini.cca.canbemini.permission.Permission;
 import es.capgemini.cca.canbemini.users.Users;
 
-@Entity
-@Table(name = "User_kanban_permission")
+//representa la relación entre un usuario, un kanban y un permiso.
+@Entity //entidad que se persistirá en la base de datos
+@Table(name = "User_kanban_permission") //nombre de la tabla
 public class UserKanbanPermission {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id //clave primaria de la tabla User_kanban_permission
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //generada por el sistema
     private Long id;
 
-    //@JsonIgnore
+    /*tiene tres atributos de tipo ManyToOne, que representan
+    la relación muchos a uno con la clase Users, Kanban y Permission respectivamente.
+     */
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id")//la tabla Users está relacionada con la tabla User_kanban_permission a través de la columna "user_id".
     private Users users;
 
     @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "kanban_id")
+    @JoinColumn(name = "kanban_id")// la tabla Kanban está relacionada con la tabla User_kanban_permission a través de la columna "kanban_id".
     private Kanban kanban;
 
-    //@JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "permission_id")
+    @JoinColumn(name = "permission_id") //la tabla Permission está relacionada con la tabla User_kanban_permission a través de la columna "permission_id".
     private Permission permission;
 
     public UserKanbanPermission(Users user, Kanban kanban, Permission permission) {

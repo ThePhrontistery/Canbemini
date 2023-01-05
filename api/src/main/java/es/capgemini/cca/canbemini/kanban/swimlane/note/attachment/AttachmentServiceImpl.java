@@ -15,6 +15,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import es.capgemini.cca.canbemini.kanban.swimlane.note.NoteService;
 import es.capgemini.cca.canbemini.security.NotAuthorizedException;
 
+//Este es un servicio de atachments que implementa la interfaz AttachmentService.
 @Service
 public class AttachmentServiceImpl implements AttachmentService {
 
@@ -24,27 +25,33 @@ public class AttachmentServiceImpl implements AttachmentService {
     @Autowired
     NoteService noteService;
 
+    // @Value: se utilizan para construir una URL completa a partir de la cual se
+    // descargará un archivo adjunto desde el servidor
     @Value("${spring.server.url}")
     private String url;
 
     @Value("${spring.server.port}")
     private String port;
 
+    // Buscar todos los atachment de una nota específica
     @Override
     public List<Attachment> findAttachmentNotes(Long noteId) {
         return (List<Attachment>) this.attachmentRepository.findAttachmentNotes(noteId);
     }
 
+    // Buscar un attachment específico
     @Override
     public Attachment findAttachment(Long id) {
         return this.attachmentRepository.findById(id).orElse(null);
     }
 
+    // borrarlo
     @Override
     public void deleteAttachment(Long id) {
         this.attachmentRepository.deleteById(id);
     }
 
+    // guarda un attatchemnt
     @Override
     public Attachment saveAttachment(Long noteId, Long id, MultipartFile multipartFile) {
         Attachment attachment = null;
@@ -77,6 +84,7 @@ public class AttachmentServiceImpl implements AttachmentService {
         return null;
     }
 
+    // descarga un attachment
     @Override
     public ResponseEntity<byte[]> downloadFile(Long id) {
         Attachment attachment = attachmentRepository.findById(id)
@@ -89,6 +97,7 @@ public class AttachmentServiceImpl implements AttachmentService {
                 .header(HttpHeaders.ACCESS_CONTROL_EXPOSE_HEADERS, "Content-Disposition").body(file);
     }
 
+    // Verifica si un usuario tiene permisos
     @Override
     public Boolean isAuthorized(String permission, Long attachmentId) throws NotAuthorizedException {
 

@@ -7,15 +7,17 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import es.capgemini.cca.canbemini.kanban.KanbanDto;
 import es.capgemini.cca.canbemini.kanban.swimlane.note.NoteDto;
 
+//Representa a un objeto de transferencia de datos (DTO) para la entidad Swimlane
 public class SwimlaneDto {
-    private Long id;
+    private Long id;// identificador del swimlane
 
-    @JsonIgnore
-    private KanbanDto kanban;
+    @JsonIgnore // indica que kanban no se incluirá en la serialización a formato JSON. Es como
+                // evitamos los bucles infinitos
+    private KanbanDto kanban;// representa el objeto Kanban al que pertenece el Swimlane
 
     private Long order;
 
-    private List<NoteDto> notes;
+    private List<NoteDto> notes;// lista de notas que perftenecen al swimlane
 
     private String title;
 

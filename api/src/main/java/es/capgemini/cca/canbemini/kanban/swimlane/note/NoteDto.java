@@ -7,6 +7,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import es.capgemini.cca.canbemini.kanban.swimlane.SwimlaneDto;
 import es.capgemini.cca.canbemini.kanban.swimlane.note.attachment.AttachmentDto;
 
+/*Es una clase que representa un objeto "nota" en forma de objeto Java. 
+Se utiliza para transferir información entre componentes de la aplicación, 
+como la base de datos y la interfaz de usuario.*/
 public class NoteDto {
 
     private Long id;
@@ -17,7 +20,9 @@ public class NoteDto {
 
     private Set<AttachmentDto> attachment;
 
-    @JsonIgnore
+    @JsonIgnore // como hemos dicho en otras clases, cuando se convierta un objeto de tipo
+                // NoteDto a una cadena JSON, la propiedad swimlane no se incluirá en la cadena
+                // resultante.
     private SwimlaneDto swimlane;
 
     public NoteDto(String content, SwimlaneDto swimlane) {

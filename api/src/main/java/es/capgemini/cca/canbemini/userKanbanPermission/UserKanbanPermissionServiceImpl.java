@@ -14,6 +14,7 @@ import es.capgemini.cca.canbemini.security.NotAuthorizedException;
 import es.capgemini.cca.canbemini.users.Users;
 import es.capgemini.cca.canbemini.users.UsersService;
 
+//es una implementación de la interfaz UserKanbanPermissionService
 @Service
 public class UserKanbanPermissionServiceImpl implements UserKanbanPermissionService {
 
@@ -26,11 +27,15 @@ public class UserKanbanPermissionServiceImpl implements UserKanbanPermissionServ
     @Autowired
     PermissionService permissionService;
 
+    //devuelve la lista de UKP
     @Override
     public List<UserKanbanPermission> get() {
         return (List<UserKanbanPermission>) this.userKanbanPermissionRepository.findAll();
     }
 
+    /* se utiliza para crear una nueva asociación entre un usuario y un kanban.
+    Se debe implementar la parte de editarlo
+    */
     @Override
     public void saveUkp(Long id, Long userId, Long kanbanId, Long permissionId) {
 
@@ -40,6 +45,7 @@ public class UserKanbanPermissionServiceImpl implements UserKanbanPermissionServ
             ukp = new UserKanbanPermission();
         else {
             // falta editar
+
         }
 
         Users user = userService.findUsers(userId);
@@ -54,11 +60,13 @@ public class UserKanbanPermissionServiceImpl implements UserKanbanPermissionServ
         this.userKanbanPermissionRepository.save(ukp);
     }
 
+    //devuelve el ukp con el ID especificado
     @Override
     public UserKanbanPermission getUkp(Long id) {
         return userKanbanPermissionRepository.findById(id).orElse(null);
     }
 
+    //se utiliza para añadir un usuario a un kanban existente
     @Override
     public void newUserInKanban(Long userId, Long kanbanId, Long permissionId) {
 
@@ -80,6 +88,7 @@ public class UserKanbanPermissionServiceImpl implements UserKanbanPermissionServ
 
     }
 
+    //se utiliza para verificar si un usuario tiene permiso para realizar una acción específica en un kanban
     @Override
     public boolean isAuthorized(String permission, Long kanbanId) throws NotAuthorizedException {
         String opc = permission;

@@ -18,17 +18,17 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import es.capgemini.cca.canbemini.userKanbanPermission.UserKanbanPermission;
 
-@Entity
-@Table(name = "Users")
+@Entity// indica que se puede mapear una tabla en una base de datos
+@Table(name = "Users") // especifica el nombre de la tabla en la base de datos
 public class Users {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id //primary key
+    @GeneratedValue(strategy = GenerationType.IDENTITY)//autogenerada
     private Long id;
 
-    @Column(name = "username")
+    @Column(name = "username") //especifica que se alacenará el email en una columna de la tabla llamaba username
     private String email;
 
-    @Column(name = "password")
+    @Column(name = "password") // se alamacenará el password en la columna correspondiente
     private String password;
 
     @OneToMany(mappedBy = "users", fetch = FetchType.EAGER)

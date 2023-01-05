@@ -1,15 +1,25 @@
 package es.capgemini.cca.canbemini.kanban.swimlane.note.attachment;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import es.capgemini.cca.canbemini.kanban.swimlane.note.Note;
 
-@Entity
-@Table(name = "Attachment")
+@Entity // indica que se puede mapear una tabla en una base de datos
+@Table(name = "Attachment") // nombre de la tabla
+//Los atributos con @column indica que se puede mapear a columnas en la tabla
 public class Attachment {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id // el atributo es la clase primaria
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // será generado por la base de datos
     @Column(name = "id", nullable = false)
     private Long id;
 
@@ -22,12 +32,15 @@ public class Attachment {
     @Column(name = "type")
     private String type;
 
-    @JsonIgnore
-    @ManyToOne
+    @JsonIgnore // Note no se incluirá en la representación JSON del objeto Attachment ni se
+                // asignará al objeto Attachment durante la deserialización.
+    @ManyToOne // indica que hay una relación muchos-a-uno entre la clase Attachment y la clase
+               // Note.
     @JoinColumn(name = "note_id")
     private Note note;
 
-    @Lob
+    @Lob // indica que el atributo file es un objeto grande, como un archivo, que se
+         // almacenará en una columna de tipo Large Object en la base de datos.
     @JsonIgnore
     private byte[] file;
 

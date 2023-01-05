@@ -23,8 +23,11 @@ import es.capgemini.cca.canbemini.userKanbanPermission.UserKanbanPermissionServi
 @RequestMapping(value = "/api/kanban")
 @RestController
 @CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "*")
-@EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableWebSecurity // habilita la seguridad web
+@EnableGlobalMethodSecurity(prePostEnabled = true) // habilita la seguridad en los métodos de la aplicación, permitiendo
+                                                   // especificar restricciones de acceso
+
+//La clase KanbanController es un controlador de Spring que expone servicios REST para interactuar con Kanban
 public class KanbanController {
 
     @Autowired
@@ -42,6 +45,7 @@ public class KanbanController {
     public KanbanController() {
 
     }
+//@PreAuthorize: se evalúa antes de que se ejecute el método, Si la expresión se evalúa como verdadera, entonces se permite el acceso al método, de lo contrario se deniega el acceso.
 
     @RequestMapping(path = "/get/{kanbanId}", method = RequestMethod.GET)
     @PreAuthorize("@kanbanServiceImpl.isAuthorized('Collaborator',#kanbanId)")

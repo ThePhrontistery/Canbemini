@@ -1,5 +1,6 @@
 package es.capgemini.cca.canbemini.security;
 
+// se utiliza para almacenar la información de un usuario
 public class UserInfoResponse {
     private String email;
 

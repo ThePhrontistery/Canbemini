@@ -20,7 +20,6 @@ import './commands'
 // require('./commands')
 
 //añado aquí el test de login
-
 describe('Login form', () => {
   beforeEach(() => {
     //carga la página de inicio de sesión en el navegador.
@@ -53,14 +52,9 @@ describe('Login form', () => {
   it('should display a success message when the form is submitted with valid data', () => {
     //las siguientes líneas escriben los campos de email , password y se hace click en el botón del formulario
     cy.get('input[name=email]').type('cesar@email.com');
-    cy.get('input[name=password]').type('hola');
+    cy.get('input[name=password]').type('123');
     cy.get('button[type=submit]').click();
     //este código hace que se navegue hacía la página de kanbans
     cy.url().should('include', '/kanbans');
   });
 });
-
-
-
-
-  

@@ -1,9 +1,10 @@
 package es.capgemini.cca.canbemini.permission;
 
+//es una clase que se utiliza para transferir datos entre el servidor y la aplicación cliente
 public class PermissionDto {
-    private Long id;
+    private Long id; // identificador de un permiso
 
-    private String rol;
+    private String rol; // contiene el nombre del rol asociado al permiso
 
     public Long getId() {
         return id;

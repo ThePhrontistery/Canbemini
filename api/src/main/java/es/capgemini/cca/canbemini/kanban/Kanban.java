@@ -15,8 +15,10 @@ import javax.persistence.Table;
 import es.capgemini.cca.canbemini.kanban.swimlane.Swimlane;
 import es.capgemini.cca.canbemini.userKanbanPermission.UserKanbanPermission;
 
-@Entity
-@Table(name = "Kanban")
+@Entity // indica que se puede mapear una tabla en una base de datos
+@Table(name = "Kanban") // especifica el nombre de la tabla en la base de datos
+
+//Los atributos con @column indica que se puede mapear a columnas en la tabla
 public class Kanban {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,7 +33,13 @@ public class Kanban {
 
     @Column(name = "code", nullable = false, unique = true)
     private String code;
-
+    /*
+     * La clase tiene dos relaciones uno a muchos con otras clases:
+     * UserKanbanPermission y Swimlane. Esto se especifica mediante la
+     * anotación @OneToMany. Esta anotación también especifica que la relación es
+     * "bidireccional", lo que significa que tanto la clase Kanban como las clases
+     * relacionadas pueden acceder a la otra.
+     */
     @OneToMany(mappedBy = "kanban", orphanRemoval = true)
     private List<UserKanbanPermission> userKanbanPermission;
 
@@ -101,13 +109,20 @@ public class Kanban {
         this.code = code;
     }
 
+    /*
+     * Este método se utiliza para generar un código aleatorio único que se puede
+     * utilizar como un identificador para cada kanban. El código se puede utilizar
+     * para enviar enlaces a los usuarios que permitan acceder a un kanban
+     * específico una vez iniciado sesión.
+     */
     private String generateCode() {
-        int leftLimit = 48; // numeral '0'
-        int rightLimit = 122; // letter 'z'
-        int targetStringLength = 25;
-        Random random = new Random();
+        int leftLimit = 48; // numeral '0', caracter ASCII
+        int rightLimit = 122; // letter 'z', carácter ASCII más grande que se puede incluir en el código
+                              // generado
+        int targetStringLength = 25; // longitud del código
+        Random random = new Random();// genera números aleatorios
 
-        String generatedString = random.ints(leftLimit, rightLimit + 1)
+        String generatedString = random.ints(leftLimit, rightLimit + 1)// se construye una cadena de caracteres
                 .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97)).limit(targetStringLength)
                 .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append).toString();
 
